@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Chat-App</title>
+  </head>
+  <body>
+    <section class="material-half-bg">
+      <div class="cover"></div>
+    </section>
+    <section class="login-content">
+      <div class="logo">
+        <h1>Chat-App</h1>
+      </div>
+      <span id='status'></span>
+      <div class="login-box">
+        <form id="logform" class="login-form" method="post">
+          
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
+          <div class="form-group">
+            <label class="control-label">USERNAME</label>
+            <input class="form-control validate" type="text" placeholder="Email"  id="EMAIL" name="EMAIL" autofocus required>
+            <h6 id="usercheck" style="color: red;" >*Email not valid</h6>
+          </div>
+          <div class="form-group">
+            <label class="control-label">PASSWORD</label>
+            <input class="form-control validate" type="password" placeholder="Password" id="PASSWORD" name="PASSWORD" required>
+            <h6 id="passwordcheck" style="color: red;" >*Incorrect password</h6>
+          </div>
+          <div class="form-group">
+            <div class="utility">
+              <div class="animated-checkbox">
+              </div>
+              <!-- <p class="semibold-text mb-2"><a href="#" data-toggle="flip">Forgot Password ?</a></p> -->
+            </div>
+          </div>
+          <div class="form-group btn-container">
+            <button type="submit"  class="btn btn-primary btn-block"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
+          </div>
+        </form>
+
+        <!--  Forgot password  -->
+        <form class="forget-form" action="http://www.toonworld.io:5000/admin/forgotPassword" method="post">
+          <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
+          <div class="form-group">
+            <label class="control-label">EMAIL</label>
+            <input class="form-control" type="text" placeholder="Email" id="EMAIL" name="EMAIL" required>
+          </div>
+          <div class="form-group btn-container">
+            <button class="btn btn-primary btn-block" ><i class="fa fa-unlock fa-lg fa-fw"></i>Send Otp</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Essential javascripts for application to work-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <!-- The javascript plugin to display page loading on top-->
+    <script src="js/plugins/pace.min.js"></script>
+    <script type="text/javascript">
+      // Login Page Flipbox control
+      $('.login-content [data-toggle="flip"]').click(function() {
+      	$('.login-box').toggleClass('flipped');
+      	return false;
+      });
+    </script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      var _window = this || self || window;
+      $("#usercheck").hide()
+      $("#passwordcheck").hide()
+      $('#logform').on('submit', async function(e){
+        e.preventDefault();
+        await $.ajax({
+          url: "http://localhost:5000/login",
+          type: "POST",
+          data: {
+            email:$("#EMAIL").val(),
+            password:$("#PASSWORD").val()
+        },
+        dataType : "json",
+        success: function(result){
+            console.log(result)
+            if(result.statusCode == 401){
+              $("#usercheck").show();
+            }
+            if(result.statusCode  == 402){
+              $("#passwordcheck").show();
+            }
+            if(result.statusCode == 200){
+              // console.log("token", result.access)
+              localStorage.setItem('loginToken',JSON.stringify(({
+                'login':true,
+                'token':result.access,
+                'isAdmin':1
+            })))
+              window.location.href = '/dashboard.html';
+              // window.location.href = '/admin/dashboard.html';
+
+            }
+          },
+          error:function(err){
+            // window.location.href = '/admin/dashboard.html';
+            window.location.href = '/index.html'
+          }
+        });
+      })
+    </script>
+     <script>
+      $(document).ready(function () {
+        $(".validate").focus(function () {
+          $("#usercheck").hide();
+          $("#passwordcheck").hide();
+        })
+      })
+    </script>
+  </body>
+</html>
