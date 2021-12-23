@@ -94,7 +94,7 @@
                             var broker_id = url.searchParams.get("broker_id");
                             console.log("broker_id",broker_id)
 
-                          fetch("http://localhost:5000/getBrokerAllChats?broker_id="+broker_id)
+                          fetch("http://3.138.38.80:3112/getBrokerAllChats?broker_id="+broker_id)
                           .then(res => {res.json().then(data => {
                             console.log("data",data)
                                 if (data.chats.length > 0) {
@@ -178,14 +178,14 @@
     <script>
         var token = JSON.parse(localStorage.getItem('loginToken'))
         if(!token){
-          window.location.href = '/index.html';
+          window.location.href = '/credit_block/admin/index.html';
           // window.location.href = '/frontend/page-login.html';
         }
     </script>
     <script>
       function logout(){
         localStorage.removeItem("loginToken")
-        window.location.href = '/index.html';
+        window.location.href = '/credit_block/admin/index.html';
         // window.location.href = '/frontend/page-login.html';
       }
     </script>

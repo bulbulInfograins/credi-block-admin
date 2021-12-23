@@ -92,7 +92,7 @@
                       <script type="text/javascript"></script>
         
                       <script>
-                          fetch("http://localhost:5000/getBroker")
+                          fetch("http://3.138.38.80:3112/getBroker")
                           .then(res => {res.json().then(data => {
                                 if (data.data.length > 0) {
                                   var temp = "";
@@ -217,14 +217,14 @@
     <script>
         var token = JSON.parse(localStorage.getItem('loginToken'))
         if(!token){
-          window.location.href = '/index.html';
+          window.location.href = '/credit_block/admin/index.html';
           // window.location.href = '/frontend/page-login.html';
         }
     </script>
     <script>
       function logout(){
         localStorage.removeItem("loginToken")
-        window.location.href = '/index.html';
+        window.location.href = '/credit_block/admin/index.html';
         // window.location.href = '/frontend/page-login.html';
       }
     </script>

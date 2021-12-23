@@ -41,6 +41,6 @@ app.use('/',admin);
 
 
 
-app.listen(process.env.port, ()=>{
-    console.log("server is listning on port 5000");
+app.listen(3112, ()=>{
+    console.log("server is listning on port 3112");
 });

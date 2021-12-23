@@ -126,7 +126,7 @@
     $('#changepasswordform').on('submit', async function(e){
     e.preventDefault();
     await $.ajax({
-        url: "http://localhost:5000/change_password",
+        url: "http://3.138.38.80:3112/change_password",
         type: "POST",
         data: {
         email:$("#EMAIL").val(),
@@ -148,7 +148,7 @@
         }
         if(result.statusCode == 200){
             // window.location.href = '/page-login.html';
-            window.location.href = '/index.html';
+            window.location.href = '/credit_block/admin/index.html';
         }
         },
         error:function(err){
@@ -161,7 +161,7 @@
     var token = JSON.parse(localStorage.getItem('loginToken'))
     if(!token){
     // window.location.href = '/page-login.html';
-    window.location.href = '/index.html';
+    window.location.href = '/credit_block/admin/index.html';
     }
 </script>
 <script>

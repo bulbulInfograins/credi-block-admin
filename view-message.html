@@ -97,7 +97,7 @@
                             var url = new URL(url_string);
                             var client_id = url.searchParams.get("client_id");
                             // console.log("client_id",client_id)
-                          fetch("http://localhost:5000/getClinetAllChat?client_id="+client_id)
+                          fetch("http://3.138.38.80:3112/getClinetAllChat?client_id="+client_id)
                           .then(res => {res.json().then(data => {
                             // console.log("data",data)
                                 if (data.chats.length > 0) {
@@ -191,14 +191,14 @@
     <script>
         var token = JSON.parse(localStorage.getItem('loginToken'))
         if(!token){
-          window.location.href = '/index.html';
+          window.location.href = '/credit_block/admin/index.html';
           // window.location.href = '/frontend/page-login.html';
         }
     </script>
     <script>
       function logout(){
         localStorage.removeItem("loginToken")
-        window.location.href = '/index.html';
+        window.location.href = '/credit_block/admin/index.html';
         // window.location.href = '/frontend/page-login.html';
       }
     </script>
